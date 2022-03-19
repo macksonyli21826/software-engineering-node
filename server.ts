@@ -6,6 +6,7 @@
 
  import UserController from "./controllers/UserController";
  import TuitController from "./controllers/TuitController";
+ import LikeController from "./controllers/LikeController";
  import mongoose from "mongoose";
  
  // connect to the database
@@ -25,7 +26,8 @@
      res.send(req.params.a + req.params.b));
  // This line is changed from UserController(app);
  const userController = new UserController();
- const tuitController = new TuitController(app);
+ const tuitController = new TuitController();
+ const likeController = new LikeController();
 
  const PORT = 4000;
  app.listen(process.env.PORT || PORT);
