@@ -94,7 +94,7 @@ export default class UserController implements UserControllerI {
         return UserController.userController;
     }
 
-    private constructor() {}
+    public constructor() {}
 
     /**
      * Retrieves all users from the database and returns an array of users.

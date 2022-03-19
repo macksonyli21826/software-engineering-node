@@ -23,7 +23,8 @@
  
  app.get('/add/:a/:b', (req: Request, res: Response) =>
      res.send(req.params.a + req.params.b));
- const userController = new UserController(app);
+ // This line is changed from UserController(app);
+ const userController = new UserController();
  const tuitController = new TuitController(app);
 
  const PORT = 4000;
