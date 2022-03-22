@@ -29,7 +29,7 @@ export default class UserDao implements UserDaoI {
         return UserDao.userDao;
     }
 
-    private constructor() {}
+    constructor() {}
 
     /**
      * Uses UserModel to retrieve all user documents from users collection
