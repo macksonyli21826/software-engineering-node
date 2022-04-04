@@ -24,10 +24,11 @@
  
  app.get('/add/:a/:b', (req: Request, res: Response) =>
      res.send(req.params.a + req.params.b));
- // This line is changed from UserController(app);
- const userController = new UserController();
- const tuitController = new TuitController();
- const likeController = new LikeController();
+
+const userController = UserController.getInstance(app);
+const tuitController = TuitController.getInstance(app);
+const likesController = LikeController.getInstance(app);
 
  const PORT = 4000;
  app.listen(process.env.PORT || PORT);
+

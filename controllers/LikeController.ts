@@ -42,7 +42,7 @@ export default class LikeController implements LikeControllerI {
         return LikeController.likeController;
     }
 
-    public constructor() {}
+    private constructor() {}
 
     /**
      * Retrieves all users that liked a tuit from the database
