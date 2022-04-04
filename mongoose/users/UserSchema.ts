@@ -1,6 +1,3 @@
-// This UserSchema.ts, with UserModel.ts, is for A2.
-// implements the structure of the data being stored in the
-// database. Used to validate the data before being stored.
 
 import mongoose from "mongoose";
 import User from "../../models/users/User";

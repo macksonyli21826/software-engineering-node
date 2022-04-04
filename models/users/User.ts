@@ -1,6 +1,3 @@
-// This user.ts file along with AccountType.ts, Location.ts and
-// MaritalStatus.ts are written as A2. It is in users folder
-// under the models folder, which are different from before
 
 import mongoose from "mongoose"
 
