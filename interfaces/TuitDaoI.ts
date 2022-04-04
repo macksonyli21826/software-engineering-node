@@ -1,11 +1,13 @@
-import Like from "../models/likes/Like";
+import Tuit from "../models/tuits/Tuit";
 
 /**
- * @file Declares API for Likes related data access object methods
+ * @file Declares API for Tuits related data access object methods
  */
-export default interface LikeDaoI {
-    findAllUsersThatLikedTuit (tid: string): Promise<Like[]>;
-    findAllTuitsLikedByUser (uid: string): Promise<Like[]>;
-    userUnlikesTuit (tid: string, uid: string): Promise<any>;
-    userLikesTuit (tid: string, uid: string): Promise<Like>;
+export default interface TuitDaoI {
+    findAllTuits (): Promise<Tuit[]>;
+    findAllTuitsByUser (uid: string): Promise<Tuit[]>;
+    findTuitById (tid: string): Promise<Tuit>;
+    createTuitByUser (uid: string, tuit: Tuit): Promise<Tuit>;
+    updateTuit (tid: string, tuit: Tuit): Promise<any>;
+    deleteTuit (tid: string): Promise<any>;
 };
