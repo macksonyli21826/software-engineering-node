@@ -1,5 +1,4 @@
 import {Request, Response} from "express";
-import Follow from "../models/follows/Follow";
 
 export default interface FollowControllerI{
     userFollowsUser (req: Request, res: Response): void;
