@@ -38,6 +38,7 @@ export default class LikeController implements LikeControllerI {
             app.get("/api/tuits/:tid/likes", LikeController.likeController.findAllUsersThatLikedTuit);
             app.post("/api/users/:uid/likes/:tid", LikeController.likeController.userLikesTuit);
             app.delete("/api/users/:uid/likes/:tid", LikeController.likeController.userUnlikesTuit);
+            app.delete("/api/tuits/:tid/likes", LikeController.likeController.retrieveAllUsersThatLikedTuit);
         }
         return LikeController.likeController;
     }
@@ -54,6 +55,9 @@ export default class LikeController implements LikeControllerI {
     findAllUsersThatLikedTuit = (req: Request, res: Response) =>
         LikeController.likeDao.findAllUsersThatLikedTuit(req.params.tid)
             .then(likes => res.json(likes));
+
+
+
 
     /**
      * Retrieves all tuits liked by a user from the database
@@ -88,4 +92,16 @@ export default class LikeController implements LikeControllerI {
     userUnlikesTuit = (req: Request, res: Response) =>
         LikeController.likeDao.userUnlikesTuit(req.params.uid, req.params.tid)
             .then(status => res.send(status));
+
+    /**
+     *
+     * @param req Represents request from client, including the
+     * path parameters uid and tid representing the user that is unliking
+     * the tuit and the tuit being unliked
+     * @param res Represents response to client, including status
+     * on whether deleting the like was successful or not
+     */
+    retrieveAllUsersThatLikedTuit = (req: Request, res: Response) =>
+    LikeController.likeDao.retrieveAllUsersThatLikedTuit(req.params.tid)
+        .then(likes=>res.json(likes));
 };
