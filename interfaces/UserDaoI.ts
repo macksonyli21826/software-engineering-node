@@ -1,6 +1,3 @@
-// This is file for A2
-// Implements the interface that the DAO needs to implement. This would allow us to replace
-// the DAO implementation without disrupting the rest aof the application
 
 import User from "../models/users/User";
 

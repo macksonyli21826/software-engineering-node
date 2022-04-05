@@ -1,5 +1,4 @@
 import Like from "../models/likes/Like";
-import {Request, Response} from "express";
 
 /**
  * @file Declares API for Likes related data access object methods
