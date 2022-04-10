@@ -1,5 +1,7 @@
+
 import mongoose, {Schema} from "mongoose";
 import Tuit from "../../models/tuits/Tuit";
+/*
 const TuitSchema = new mongoose.Schema<Tuit>({
     tuit: {type: String, required: true},
     postedBy: {type: Schema.Types.ObjectId, ref: "UserModel"},
@@ -15,3 +17,11 @@ const TuitSchema = new mongoose.Schema<Tuit>({
     }
 }, {collection: "tuits"});
 export default TuitSchema;
+ */
+const TuitSchema = new mongoose.Schema<Tuit>({
+    tuit: {type: String, required: true},
+    postedBy: {type: Schema.Types.ObjectId, ref: "UserModel"},
+    postedOn: {type: Date, default: Date.now}
+}, {collection: "tuits"});
+export default TuitSchema;
+

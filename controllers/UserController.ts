@@ -75,7 +75,6 @@ export default class UserController implements UserControllerI {
     findAllUsers = (req: Request, res: Response) =>
         UserController.userDao.findAllUsers()
             .then((users: User[]) => res.json(users));
-
     /**
      * Retrieves the user by their primary key
      * @param {Request} req Represents request from client, including path

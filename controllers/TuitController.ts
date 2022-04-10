@@ -36,12 +36,20 @@ export default class TuitController implements TuitControllerI {
         if(TuitController.tuitController === null) {
             TuitController.tuitController = new TuitController();
             app.get("/api/tuits", TuitController.tuitController.findAllTuits);
-            app.get("/api/users/:uid/tuits", TuitController.tuitController.findAllTuitsByUser);
-            app.get("/api/tuits/:uid", TuitController.tuitController.findTuitById);
-            app.post("/api/users/:uid/tuits", TuitController.tuitController.createTuitByUser);
-            app.put("/api/tuits/:uid", TuitController.tuitController.updateTuit);
-            app.delete("/api/tuits/:uid", TuitController.tuitController.deleteTuit);
-        }
+
+            app.get("/api/tuits/:tid", TuitController.tuitController.findTuitById);
+
+            app.get("/api/users/:uid/tuits", TuitController.tuitController.findTuitByUser);
+
+            app.post("/api/users/:uid/tuits", TuitController.tuitController.createTuit);
+
+            app.put("/api/tuits/:tid", TuitController.tuitController.updateTuit);
+
+            app.delete("/api/tuits/:tid", TuitController.tuitController.deleteTuit);
+
+            app.delete("/api/users/:uid/tuits", TuitController.tuitController.deleteTuitsByUser);
+
+        }   app.delete("/api/tuits", TuitController.tuitController.deleteAllTuits);
         return TuitController.tuitController;
     }
 
@@ -56,17 +64,6 @@ export default class TuitController implements TuitControllerI {
     findAllTuits = (req: Request, res: Response) =>
         TuitController.tuitDao.findAllTuits()
             .then((tuits: Tuit[]) => res.json(tuits));
-    
-    /**
-     * Retrieves all tuits from the database for a particular user and returns
-     * an array of tuits.
-     * @param {Request} req Represents request from client
-     * @param {Response} res Represents response to client, including the
-     * body formatted as JSON arrays containing the tuit objects
-     */
-    findAllTuitsByUser = (req: Request, res: Response) =>
-        TuitController.tuitDao.findAllTuitsByUser(req.params.uid)
-            .then((tuits: Tuit[]) => res.json(tuits));
 
     /**
      * @param {Request} req Represents request from client, including path
@@ -75,8 +72,19 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON containing the tuit that matches the user ID
      */
     findTuitById = (req: Request, res: Response) =>
-        TuitController.tuitDao.findTuitById(req.params.uid)
+        TuitController.tuitDao.findTuitById(req.params.tid)
             .then((tuit: Tuit) => res.json(tuit));
+
+    /**
+     * Retrieves all tuits from the database for a particular user and returns
+     * an array of tuits.
+     * @param {Request} req Represents request from client
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the tuit objects
+     */
+    findTuitByUser = (req: Request, res: Response) =>
+        TuitController.tuitDao.findTuitByUser(req.params.uid)
+            .then((tuits: Tuit[]) => res.json(tuits));
 
     /**
      * @param {Request} req Represents request from client, including body
@@ -86,8 +94,8 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON containing the new tuit that was inserted in the
      * database
      */
-    createTuitByUser = (req: Request, res: Response) =>
-        TuitController.tuitDao.createTuitByUser(req.params.uid, req.body)
+    createTuit = (req: Request, res: Response) =>
+        TuitController.tuitDao.createTuit(req.params.uid, req.body)
             .then((tuit: Tuit) => res.json(tuit));
 
     /**
@@ -107,6 +115,26 @@ export default class TuitController implements TuitControllerI {
      * on whether deleting a user was successful or not
      */
     deleteTuit = (req: Request, res: Response) =>
-        TuitController.tuitDao.deleteTuit(req.params.uid)
+        TuitController.tuitDao.deleteTuit(req.params.tid)
             .then((status) => res.send(status));
+    /**
+     * @param {Request} req Represents request from client, including path
+     * parameter tid identifying the primary key of the tuit to be removed
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting a user was successful or not
+     */
+    deleteTuitsByUser = (req: Request, res: Response) =>
+        TuitController.tuitDao.deleteTuitsByUser (req.params.uid)
+            .then((status) => res.send(status));
+
+    /**
+     * @param {Request} req Represents request from client, including path
+     * parameter tid identifying the primary key of the tuit to be removed
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting a user was successful or not
+     */
+    deleteAllTuits = (req: Request, res: Response) =>
+        TuitController.tuitDao.deleteAllTuits ()
+            .then((status) => res.send(status));
+
 };

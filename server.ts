@@ -16,6 +16,7 @@ import UserController from "./controllers/UserController";
 import TuitController from "./controllers/TuitController";
 import LikeController from "./controllers/LikeController";
 import mongoose from "mongoose";
+var bodyParser = require('body-parser');
 var cors = require('cors')
 
 // build the connection string
@@ -26,12 +27,15 @@ const HOST = "cluster0.m8jeh.mongodb.net";
 const DB_NAME = "myFirstDatabase";
 const DB_QUERY = "retryWrites=true&w=majority";
 //const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${DB_NAME}?${DB_QUERY}`;
-const connectionString = 'mongodb+srv://li_yuanqia:123456ABC@cluster0.gh58x.mongodb.net/Tuiter?retryWrites=true&w=majority';
+const connectionString = 'mongodb+srv://cs5500-a3:cs5500-a3@cluster0.leqbn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 // connect to the database
 mongoose.connect(connectionString);
 
 const app = express();
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(cors());
 
 app.get('/', (req: Request, res: Response) =>
