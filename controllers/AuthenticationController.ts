@@ -50,12 +50,16 @@ const login = async (req: Request, res: Response) => {
     const user = req.body;
     const username = user.username;
     const password = user.password;
+    if (password === undefined) {
+        res.sendStatus(400);
+        return;
+    }
     console.log(password)
     const existingUser = await userDao
         .findUserByUsername(username);
     const match = await bcrypt.compare(password, existingUser.password);
-    // login successful, response is existing user
-    // login not successful, response is error code
+    // login successful, response is existing user and it displays their profile
+    // login not successful, response is error code, and it stays here
     if (match) {
         existingUser.password = '*****';
         // @ts-ignore

@@ -10,6 +10,8 @@
  * Connects to a remote MongoDB instance hosted on the Atlas cloud database
  * service
  */
+
+// I use 1 as password for everyone
 import express, {Request, Response} from 'express';
 import CourseController from "./controllers/CourseController";
 import UserController from "./controllers/UserController";
