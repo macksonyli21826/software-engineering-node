@@ -75,16 +75,20 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON arrays containing the tuit objects
      */
     findAllTuitsByUser = (req: Request, res: Response) => {
+        // also called "findTuitsByUser" in the instruction
+        // code below is changed according to instruction
         // @ts-ignore
-        let userId = req.params.uid === "my" && req.session['profile'] ?
+        let userId = req.params.uid === "me"
+            //@ts-ignore
+        && req.session['profile'] ?
             // @ts-ignore
             req.session['profile']._id : req.params.uid;
-        if (userId === "my") {
+        if (userId === "me") {
             res.sendStatus(503);
             return;
         }
-        TuitController.tuitDao.findAllTuitsByUser(userId)
-            .then((tuits: Tuit[]) => res.json(tuits));
+        TuitController.tuitDao.findAllTuitsByUser(userId) // retrieve all tuits posted by user
+            .then((tuits: Tuit[]) => res.json(tuits)); // respond with tuits posted by user
     }
 
     /**
@@ -96,19 +100,23 @@ export default class TuitController implements TuitControllerI {
      * database
      */
     createTuitByUser = (req: Request, res: Response) => {
+        // This section is changed according to instruction
         // @ts-ignore
-        let userId = req.params.uid === "me"
+        let userId = req.params.uid === "me" // let user id equal to parameter
         // @ts-ignore
         && req.session['profile'] ?
             // @ts-ignore
-            req.session['profile']._id :
-            req.params.uid;
+            req.session['profile']._id : // if there is a logged in user, get id from it
+            req.params.uid; // otherwise, use parameter
 
+        // code below not in instruction
+        /*
         if (userId === "me") {
             res.sendStatus(503);
             return;
         }
-
+         */
+        // code below inserting tuit into database, respond with inserted tuit
         TuitController.tuitDao.createTuitByUser(userId, req.body)
             .then((tuit: Tuit) => res.json(tuit));
     }
