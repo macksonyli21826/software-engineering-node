@@ -68,7 +68,7 @@ export default class LikeController implements LikeControllerI {
         const uid = req.params.uid;
         // @ts-ignore
         const profile = req.session['profile'];
-        const userId = uid === "me" && profile ?
+        const userId = uid === 'me' && profile ?
             profile._id : uid;
 
         LikeController.likeDao.findAllTuitsLikedByUser(userId)
