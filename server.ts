@@ -39,25 +39,17 @@ const app = express();
 
 app.use(cors({
     credentials: true,
-    origin: process.env.CORS_ORIGIN
+    //origin: process.env.CORS_ORIGIN
+    origin: 'http://localhost:3000'
 }));
 
-/*
-let sess = {
-    secret: process.env.EXPRESS_SESSION_SECRET,
-    saveUninitialized: true,
-    resave: true,
-    cookie: {
-        sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
-        secure: process.env.NODE_ENV === "production",
-    }
-}
- */
-
-console.log("secret:", process.env.SECRET)
+// For debug
+//console.log("secret:", process.env.SECRET)
 
 let sess = {
     secret: process.env.SECRET,
+    saveUninitialized: true,
+    resave: true,
     cookie: {
         secure: false
     }
@@ -91,7 +83,7 @@ const courseController = new CourseController(app);
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
 const likesController = LikeController.getInstance(app);
-const sessionController = SessionController(app);
+SessionController(app);
 AuthenticationController(app);
 GroupController(app);
 /**

@@ -41,6 +41,9 @@ export default class TuitDao implements TuitDaoI{
         TuitModel.updateOne(
             {_id: tid},
             {$set: tuit});
+
+    // updates the stats nested schema for a particular tuit which will be useful to
+    // change the likes count when someone likes or unlikes a tuit
     updateLikes = async (tid: string, newStats: any): Promise<any> =>
         TuitModel.updateOne(
             {_id: tid},

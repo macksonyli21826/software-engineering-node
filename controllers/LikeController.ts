@@ -38,6 +38,7 @@ export default class LikeController implements LikeControllerI {
             LikeController.likeController = new LikeController();
             app.get("/api/users/:uid/likes", LikeController.likeController.findAllTuitsLikedByUser);
             app.get("/api/tuits/:tid/likes", LikeController.likeController.findAllUsersThatLikedTuit);
+            // in react this one is called userLikesTuit
             app.put("/api/users/:uid/likes/:tid", LikeController.likeController.userTogglesTuitLikes);
         }
         return LikeController.likeController;
@@ -93,13 +94,15 @@ export default class LikeController implements LikeControllerI {
         const uid = req.params.uid;
         const tid = req.params.tid;
         // @ts-ignore
-        const profile = req.session['profile'];
+        const profile = req.session['profile']; // retrieve user, get its id
         const userId = uid === "me" && profile ?
             profile._id : uid;
-        try {
+        try { // check if user already has liked tuit
             const userAlreadyLikedTuit = await likeDao.findUserLikesTuit(userId, tid);
-            const howManyLikedTuit = await likeDao.countHowManyLikedTuit(tid);
+            const howManyLikedTuit = await likeDao.countHowManyLikedTuit(tid); // count how many like this tuit
             let tuit = await tuitDao.findTuitById(tid);
+            // if user already likes tuit, the button is dislike button
+            // otherwise the button is like button
             if (userAlreadyLikedTuit) {
                 await likeDao.userUnlikesTuit(userId, tid);
                 tuit.stats.likes = howManyLikedTuit - 1;
@@ -107,6 +110,7 @@ export default class LikeController implements LikeControllerI {
                 await LikeController.likeDao.userLikesTuit(userId, tid);
                 tuit.stats.likes = howManyLikedTuit + 1;
             };
+            // update likes count
             await tuitDao.updateLikes(tid, tuit.stats);
             res.sendStatus(200);
         } catch (e) {
