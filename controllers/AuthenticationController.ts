@@ -50,6 +50,10 @@ const login = async (req: Request, res: Response) => {
     const user = req.body;
     const username = user.username;
     const password = user.password;
+    if (username === undefined) {
+        res.sendStatus(400);
+        return;
+    }
     if (password === undefined) {
         res.sendStatus(400);
         return;
@@ -57,6 +61,10 @@ const login = async (req: Request, res: Response) => {
     console.log(password)
     const existingUser = await userDao
         .findUserByUsername(username);
+    if(existingUser === null){
+        res.sendStatus(400);
+        return;
+    }
     const match = await bcrypt.compare(password, existingUser.password);
     // login successful, response is existing user and it displays their profile
     // login not successful, response is error code, and it stays here
