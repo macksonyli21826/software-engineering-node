@@ -46,6 +46,7 @@ app.use(cors({
 
 // For debug
 //console.log("secret:", process.env.SECRET)
+process.env.SECRET='somesecret';
 
 let sess = {
     secret: process.env.SECRET,
