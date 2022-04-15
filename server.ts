@@ -27,7 +27,7 @@ const HOST = "cluster0.m8jeh.mongodb.net";
 const DB_NAME = "myFirstDatabase";
 const DB_QUERY = "retryWrites=true&w=majority";
 //const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${DB_NAME}?${DB_QUERY}`;
-const connectionString = 'mongodb+srv://cs5500-a3:cs5500-a3@cluster0.leqbn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const connectionString = `mongodb+srv://cs5500a3:cs5500a3@cluster0.leqbn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 // connect to the database
 mongoose.connect(connectionString);
 
