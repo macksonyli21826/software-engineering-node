@@ -40,8 +40,9 @@ const app = express();
 
 app.use(cors({
     credentials: true,
-    //origin: process.env.CORS_ORIGIN
-    origin: 'http://localhost:3000'
+    // origin: process.env.CORS_ORIGIN
+    // origin: 'http://localhost:3000'
+    origin: 'https://my-dislikes-screen--wizardly-wozniak-5bf0bb.netlify.app'
 }));
 
 // For debug
